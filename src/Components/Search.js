@@ -1,1 +1,1 @@
-export const Search = () => {};
+export const Search = ({ state, send }) => {};

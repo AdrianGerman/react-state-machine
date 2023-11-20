@@ -1,1 +1,1 @@
-export const Tickets = () => {};
+export const Tickets = ({ state, send }) => {};
