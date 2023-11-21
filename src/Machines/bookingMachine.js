@@ -1,24 +1,30 @@
-import { createMachine } from "xstate";
+import { createMachine, assign } from "xstate";
 
 const bookingMachine = createMachine(
   {
     predictableActionArguments: true,
     id: "Comprar boletos de avión",
     initial: "initial",
+    context: {
+      passengers: [],
+      selectedCountry: "",
+    },
     states: {
       initial: {
         on: {
           START: {
             target: "search",
-            actions: "imprimirInicio",
           },
         },
       },
       search: {
-        entry: "imprimirEntrada",
-        exit: "imprimirSalida",
         on: {
-          CONTINUE: "passengers",
+          CONTINUE: {
+            target: "passengers",
+            actions: assign({
+              selectedCountry: (context, event) => event.selectedCountry,
+            }),
+          },
           CANCEL: "initial",
         },
       },
@@ -26,6 +32,12 @@ const bookingMachine = createMachine(
         on: {
           DONE: "tickets",
           CANCEL: "initial",
+          ADD: {
+            target: "passengers",
+            actions: assign((context, event) =>
+              context.passengers.push(event.newPassenger)
+            ),
+          },
         },
       },
       tickets: {
