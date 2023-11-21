@@ -11,7 +11,10 @@ const fillCountries = {
         onDone: {
           target: "success",
           actions: assign({
-            countries: (context, event) => event.data,
+            countries: (context, event) =>
+              event.data.sort((a, b) =>
+                a.name.common.localeCompare(b.name.common)
+              ),
           }),
         },
         onError: {
@@ -81,12 +84,12 @@ const bookingMachine = createMachine(
         },
       },
       tickets: {
-        // after: {
-        //   5000: {
-        //     target: "initial",
-        //     actions: "cleanContext",
-        //   },
-        // },
+        after: {
+          5000: {
+            target: "initial",
+            actions: "cleanContext",
+          },
+        },
         on: {
           FINISH: {
             target: "initial",
@@ -98,9 +101,10 @@ const bookingMachine = createMachine(
   },
   {
     actions: {
-      cleanContext: assign({
-        selectedCountry: "",
-        passengers: [],
+      cleanContext: assign((context) => {
+        context.passengers = [];
+        context.selectedCountry = "";
+        return context;
       }),
     },
     guards: {
