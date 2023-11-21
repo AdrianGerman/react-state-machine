@@ -27,3 +27,9 @@
 .Passengers-title {
   margin-bottom: 16px;
 }
+
+.text {
+  padding: 8px;
+  box-sizing: border-box;
+  color: #293684;
+}

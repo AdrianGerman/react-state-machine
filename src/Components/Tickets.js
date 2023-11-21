@@ -9,10 +9,10 @@ export const Tickets = ({ context, send }) => {
   return (
     <div className="Tickets">
       <p className="Tickets-description description">
-        Gracias por volar con nosotros
+        ¡Gracias por volar con nosotros!
       </p>
       <div className="Tickets-ticket">
-        <div className="Tickets-country">Mexico</div>
+        <div className="Tickets-country">{context.selectedCountry}</div>
         <div className="Tickets-passengers">
           <span>✈</span>
           {context.passengers.map((person, idx) => {
