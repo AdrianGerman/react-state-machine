@@ -8,7 +8,7 @@ export const Nav = ({ state, send }) => {
   return (
     <nav className="Nav">
       <h1 className="Nav-logo">Reserva tu vuelo ✈</h1>
-      {!state.matches("initial") && (
+      {!state.matches("initial") && !state.matches("tickets") && (
         <button onClick={goToWelcome} className="Nav-cancel button-secondary">
           Cancelar
         </button>
